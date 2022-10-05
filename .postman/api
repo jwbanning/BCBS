@@ -1,0 +1,19 @@
+id = b71ff27e-6459-42c7-a72a-2d583e443734
+
+[relations]
+
+[relations.collections]
+rootDirectory = postman/collections
+files[] = {"id":"16869146-f43d4048-7be0-48b9-9e56-8b02bdf5e9dc","path":"Mobile Claims API.json","metaData":{}}
+files[] = {"id":"16869146-e23241c1-db2b-43f0-8f10-42cc8f4e4394","path":"Mobile Claims UX Test.json","metaData":{}}
+files[] = {"id":"16869146-f2e45c91-37ae-4dc9-af9e-b7e208608b98","path":"Quote API.json","metaData":{}}
+
+[relations.collections.metaData]
+
+[relations.apiDefinition]
+rootDirectory = postman/schemas
+files[] = {"path":"index.yaml","metaData":{}}
+
+[relations.apiDefinition.metaData]
+type = openapi:3
+rootFiles[] = index.yaml

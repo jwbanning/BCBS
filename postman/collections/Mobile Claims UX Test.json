@@ -1,0 +1,439 @@
+{
+	"info": {
+		"_postman_id": "e23241c1-db2b-43f0-8f10-42cc8f4e4394",
+		"name": "Mobile Claims UX Test",
+		"description": "The Mobile Claims API was a microservice built to handle claim actions specifically to support our mobile app. We will add to it over time, but for now the core actions are available: Creating and getting claims, as well as adding and viewing pictures. \n\nFor specific edge cases not handled by the new Mobile claims API, you may refer to the legacy system claims section as we transition, and either make a call to the legacy server, or make a fork of this collection, add and implement your newly proposed endpoint, and create a pull request to add it back into the Mobile claims collection. Be sure to tag a workspace admin and include documentation about why this endpoint is needed.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "16869146-e23241c1-db2b-43f0-8f10-42cc8f4e4394"
+	},
+	"item": [
+		{
+			"name": "claims",
+			"item": [
+				{
+					"name": "{claim Id}/image",
+					"item": [
+						{
+							"name": "Add image to claim",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "81069dc7-9482-4f30-9f13-7332a203518f",
+										"exec": [
+											"pm.test(\"Status code is 201\", function () {",
+											"    pm.response.to.have.status(201);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "b3f809c8-751c-402f-bfa6-aee5d99515d2",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "form-data"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"description": "(Required) image to be associated with the claim. Accepted formats are PNG or JPEG.",
+											"type": "file",
+											"src": "_2H1Dkeme/fender-bender.jpeg"
+										},
+										{
+											"key": "comment",
+											"value": "Front passengers' side bumper right after accident.",
+											"description": "(Optional) Description of the picture. Good things to note: location of damage (passengers/drivers side if auto, room of the house if renters/homeowners, etc.).",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{mobileUrl}}/claims/:claimId/image",
+									"host": [
+										"{{mobileUrl}}"
+									],
+									"path": [
+										"claims",
+										":claimId",
+										"image"
+									],
+									"variable": [
+										{
+											"key": "claimId",
+											"value": "{{claim_id}}",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Create a claim by passing in the relevant customer and claim information. Note that an id and status will be assigned in the system and should not be passed in the request at this stage."
+							},
+							"response": [
+								{
+									"id": "15d95d37-c989-4d40-8cbf-248b146c2b91",
+									"name": "Image added successfully",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "form-data"
+											}
+										],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "image",
+													"description": "(Required) image to be associated with the claim. Accepted formats are PNG or JPEG.",
+													"type": "file",
+													"src": [
+														"_2H1Dkeme/fender-bender.jpeg"
+													]
+												},
+												{
+													"key": "comment",
+													"value": "Front passengers' side bumper right after accident.",
+													"description": "(Optional) Description of the picture. Good things to note: location of damage (passengers/drivers side if auto, room of the house if renters/homeowners, etc.).",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{mobileUrl}}/claims/:claimId/image",
+											"host": [
+												"{{mobileUrl}}"
+											],
+											"path": [
+												"claims",
+												":claimId",
+												"image"
+											],
+											"variable": [
+												{
+													"key": "claimId",
+													"value": "{{claim_id}}",
+													"description": "(Required) "
+												}
+											]
+										},
+										"description": "Create a claim by passing in the relevant customer and claim information. Note that an id and status will be assigned in the system and should not be passed in the request at this stage."
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": "\"Image uploaded successfully.\""
+								}
+							]
+						},
+						{
+							"name": "Get all images associtaed with this claim",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0d5ecb0a-726b-4826-beb4-b257c761a1fd",
+										"exec": [
+											"var jsonData = pm.response.json();",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "51e47371-3aa4-4397-9c6e-b40d50856d49",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{mobileUrl}}/claims/:claimId/image",
+									"host": [
+										"{{mobileUrl}}"
+									],
+									"path": [
+										"claims",
+										":claimId",
+										"image"
+									],
+									"variable": [
+										{
+											"key": "claimId",
+											"value": "{{claim_id}}",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Get all images associtaed with this claim."
+							},
+							"response": [
+								{
+									"id": "fee3e106-ba57-4829-a004-6edf2b929ec4",
+									"name": "Claims retrieved successfully",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{mobileUrl}}/claims/:claimId/image",
+											"host": [
+												"{{mobileUrl}}"
+											],
+											"path": [
+												"claims",
+												":claimId",
+												"image"
+											],
+											"variable": [
+												{
+													"key": "claimId",
+													"value": "{{claim_id}}",
+													"description": "(Required) "
+												}
+											]
+										},
+										"description": "Get all images associtaed with this claim."
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": "{\n   \"claim_id\": \"a3467-08655-08375\",\n   \"user_id\": \"495843068035865\",\n   \"user_full_name\": \"Jerry Seinfeld\",\n   \"agent\":{\n        \"agent_id\": \"pm40-0398565034\",\n        \"agent_name\": \"Elaine Benes\",\n        \"agent_avatar\": \"https://user-images.githubusercontent.com/20145532/131684244-10aefe55-1ef2-4a29-8b6c-7cf440d1be86.jpeg\",\n        \"agent_location\": \"New York, NY\"\n   },\n   \n   \"claim_status\": \"OPEN\",\n   \"images\":[\n       {\n            \"url\":\"https://user-images.githubusercontent.com/20145532/128911766-08306ac3-e055-4fe8-b7eb-5cebf8587f99.jpeg\",\n            \"comment\": \"Front passenger's side bumper right after accident.\",\n            \"filer_vehicle\": true\n        },\n        {\n            \"url\":\"https://user-images.githubusercontent.com/20145532/131690228-3cffe136-5318-4a8f-90de-bab57fcb7c27.jpeg\",\n            \"comment\": \"Back driver's side bumper of other affected car.\",\n            \"filer_vehicle\": false\n        }\n\n   ]\n}"
+								}
+							]
+						}
+					],
+					"id": "349507e6-9229-4939-94ca-50642158a6ea"
+				},
+				{
+					"name": "Get all claims",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "15c8789e-f7ce-439a-8c21-7f7c55fc4241",
+								"exec": [
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "64079a04-d4a0-484e-900a-2ca362c6f92e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{mobileUrl}}/claims?agentId={{agentId}}",
+							"host": [
+								"{{mobileUrl}}"
+							],
+							"path": [
+								"claims"
+							],
+							"query": [
+								{
+									"key": "agentId",
+									"value": "{{agentId}}",
+									"description": "(Required) "
+								}
+							]
+						},
+						"description": "Get all claims open by assigned agent."
+					},
+					"response": [
+						{
+							"id": "3b74f706-17f7-4051-bbf4-4b3cd094b2a3",
+							"name": "Claims retrieved successfully",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{mobileUrl}}/claims?agentId={{agentId}}",
+									"host": [
+										"{{mobileUrl}}"
+									],
+									"path": [
+										"claims"
+									],
+									"query": [
+										{
+											"key": "agentId",
+											"value": "{{agentId}}",
+											"description": "(Required) "
+										}
+									]
+								},
+								"description": "Get all claims open by assigned agent."
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"47249835734985\",\n        \"type\": \"AUTO\",\n        \"created\": \"04-11-2021\",\n        \"status\": \"RESOLVED\",\n           \"test\" : \"{{agentId}}\"\n\n    },\n    {\n        \"id\": \"58403985903485043\",\n        \"type\": \"HOME\",\n        \"created\": \"05-21-2021\",\n        \"status\": \"RESOLVED\"\n    },\n    {\n        \"id\": \"8594035830495803\",\n        \"type\": \"RENTERS\",\n        \"created\": \"06-07-2021\",\n        \"status\": \"PENDING\"\n    },\n    {\n        \"id\": \"430583490580934\",\n        \"type\": \"HOME\",\n        \"created\": \"07-27-2021\",\n        \"status\": \"RESOLVED\"\n    },\n    {\n        \"id\": \"94238570439850348\",\n        \"type\": \"HOME\",\n        \"created\": \"07-27-2021\",\n        \"status\": \"RESOLVED\"\n    },\n    {\n        \"id\": \"0458403985034985\",\n        \"type\": \"RENTERS\",\n        \"created\": \"07-27-2021\",\n        \"status\": \"OPEN\"\n    },\n    {\n        \"id\": \"10349830284023\",\n        \"type\": \"RENTERS\",\n        \"created\": \"08-01-2021\",\n        \"status\": \"OPEN\"\n    },\n    {\n        \"id\": \"493805039458034985\",\n        \"type\": \"HOME\",\n        \"created\": \"08-07-2021\",\n        \"status\": \"PENDING\"\n    },\n    {\n        \"id\": \"42308573408053485034\",\n        \"type\": \"AUTO\",\n        \"created\": \"08-24-2021\",\n        \"status\": \"RESOLVED\"\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Create a claim",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c737decf-2405-4ccf-9e0f-dbcaded8fd9e",
+								"exec": [
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "72c4a6f9-edd5-4124-b5b5-5abf65d90932",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"created\": \"09/15/2020\",\n    \"type\": \"AUTO\",\n    \"lastUpdated\": \"08/01/2021\",\n    \"agentId\": \"0873859\",\n    \"customerId\": \"93005738\"\n}"
+						},
+						"url": {
+							"raw": "{{mobileUrl}}/claims/create",
+							"host": [
+								"{{mobileUrl}}"
+							],
+							"path": [
+								"claims",
+								"create"
+							]
+						},
+						"description": "Create a claim by passing in the relevant customer and claim information. Note that an id and status will be assigned in the system and should not be passed in the request at this stage."
+					},
+					"response": [
+						{
+							"id": "38518b24-72ba-4d18-907d-b1a830db9422",
+							"name": "Claim created successfully",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"created\": \"09/15/2020\",\n    \"type\": \"AUTO\",\n    \"lastUpdated\": \"08/01/2021\",\n    \"agentId\": \"0873859\",\n    \"customerId\": \"93005738\"\n}"
+								},
+								"url": {
+									"raw": "{{mobileUrl}}/claims/create",
+									"host": [
+										"{{mobileUrl}}"
+									],
+									"path": [
+										"claims",
+										"create"
+									]
+								},
+								"description": "Create a claim by passing in the relevant customer and claim information. Note that an id and status will be assigned in the system and should not be passed in the request at this stage."
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"created\": \"09/15/2020\",\n    \"type\": \"AUTO\",\n    \"lastUpdated\": \"08/01/2021\",\n    \"agentId\": \"0873859\",\n    \"customerId\": \"93005738\",\n    \"claimId\":\"2309854u32\",\n    \"status\" : \"OPEN\"\n}"
+						}
+					]
+				}
+			],
+			"id": "9930cc2e-872e-464d-b56e-bc953615eba0"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "1a76ef77-6661-45ea-8296-f32741a61edc",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "ea8d5844-5622-48a4-98e8-80c9f94d8843",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "78909443-aaab-48d7-80ba-77529bc22336",
+			"key": "baseUrl",
+			"value": "https://e2ff615d-4c01-4e86-9dc9-19e5a90b1ff2.mock.pstmn.io"
+		}
+	]
+}
